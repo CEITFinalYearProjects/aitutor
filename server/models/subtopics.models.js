@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const topicsSchema = new mongoose.Schema(
+const topicnotesSchema = new mongoose.Schema(
     {
-        topic: { type: String },
+        topic: { type: mongoose.Schema.Types.ObjectId, ref: 'topics' },
         
         // Change the slides field to an array of objects
         slides: [
@@ -14,14 +14,14 @@ const topicsSchema = new mongoose.Schema(
 
     },
     {
-        collection: 'subTopics'
+        collection: 'topicnotes'
     }
 );
 
-const SubTopicsNotes = mongoose.model('subTopicsNotes', topicsSchema);
+const topicnotes = mongoose.model('topicnotes', topicnotesSchema);
 
-SubTopicsNotes.on('error', (err) => {
-    console.error('Mongoose SubTopics Model Error:', err);
+topicnotes.on('error', (err) => {
+    console.error('Mongoose subtopics Model Error:', err);
 });
 
-module.exports = SubTopicsNotes;
+module.exports = topicnotes;

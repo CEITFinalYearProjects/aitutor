@@ -2,16 +2,15 @@ const mongoose = require('mongoose');
 
 const topicsSchema = new mongoose.Schema(
     {
-        Subject: { type: String },
         topicname: { type: String },
-        
-        // Representing a list of subtopics associated with the topic
-        subtopics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subTopics' }]
+        subject: { type: mongoose.Schema.Types.ObjectId, ref: 'subjects' },
+        subtopics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtopics' }]
     },
     {
         collection: 'topics'
     }
 );
+
 
 const Topics = mongoose.model('topics', topicsSchema);
 
