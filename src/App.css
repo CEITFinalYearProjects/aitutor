@@ -1,0 +1,120 @@
+/* #0097B2 green */
+/* #7ED957 lime */
+
+.sidebar {
+  box-shadow: rgb(113 122 131 / 11%) 0px 7px 30px 0px;
+}
+
+.nav-item,
+.navbar {
+  z-index: 10000;
+}
+
+@media screen and (max-width:800px) {
+  .sidebar {
+    z-index: 10000000;
+  }
+}
+
+.e-dlg-center-center,
+.e-quick-popup-wrapper.e-device {
+  z-index: 1000000 !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(216, 216, 216);
+  border-radius: 40px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* color-picker style  */
+
+#preview {
+  background: transparent url('https://ej2.syncfusion.com/react/demos/src/color-picker/images/pen.png') no-repeat;
+  display: inline-block;
+  height: 80px;
+  margin: 10px 0;
+  min-width: 300px;
+  max-width: 600px;
+  background-color: #292b34;
+
+}
+
+.e-input-group:not(.e-float-icon-left),
+.e-input-group.e-success:not(.e-float-icon-left),
+.e-input-group.e-warning:not(.e-float-icon-left),
+.e-input-group.e-error:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {
+  border: none;
+}
+
+.orange_gradient {
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.purple_gradient {
+  @apply bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent;
+}
+
+
+.head_text {
+  @apply mt-5 text-2xl font-extrabold leading-[1.15] text-white sm:text-2xl text-center;
+}
+
+.desc {
+  @apply mt-5 text-lg text-slate-100 sm:text-xl text-center max-w-2xl;
+}
+
+.orange_bg_gradient {
+  @apply bg-gradient-to-r from-orange-600 to-yellow-500;
+}
+
+.purple_bg_gradient {
+  @apply bg-gradient-to-r from-violet-600 to-purple-600;
+}
+
+.blue_bg_gradient {
+  @apply bg-gradient-to-r from-blue-500 to-cyan-500;
+}
+
+.blue_gradient {
+  @apply bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent;
+}
+
+
+/* NEW STYLES */
+
+.green_gradient {
+  @apply bg-gradient-to-r from-teal-700 via-emerald-600 to-lime-600 bg-clip-text text-transparent;
+}
+
+.green_bg_gradient {
+  @apply bg-gradient-to-r from-teal-700 to-lime-600;
+}
+
+.green {
+  @apply bg-teal-700
+}
+
+.lime {
+  @apply bg-lime
+}
+
+.center-text{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  
+}
