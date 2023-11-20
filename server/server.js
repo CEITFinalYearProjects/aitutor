@@ -1,4 +1,5 @@
 const express = require('express')
+const OpenAI = require('openai')
 var bodyParser = require('body-parser')
 const port = 3100
 const cors = require('cors');
@@ -28,29 +29,69 @@ const saltRounds = 10;
 
 
 
-// CONNECTION TO THE DB
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true, // no longer needed
-    useUnifiedTopology: true, // no longer needed
+// // CONNECTION TO THE DB
+// mongoose.connect(process.env.MONGODB_URI, {
+//     useNewUrlParser: true, // no longer needed
+//     useUnifiedTopology: true, // no longer needed
+// });
+
+// const db = mongoose.connection;
+
+// db.on('error', (err) => {
+//     console.error('MongoDB connection error:', err);
+//     process.exit(1); // Exit the application on a MongoDB connection error
+// });
+
+// db.once('open', () => {
+//     console.log('Connected to MongoDB');
+// });
+
+
+
+
+
+// CONNECT TO OPEN AI
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_KEY
 });
-
-const db = mongoose.connection;
-
-db.on('error', (err) => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit the application on a MongoDB connection error
-});
-
-db.once('open', () => {
-    console.log('Connected to MongoDB');
-});
-
-
 
 app.get('/', (req, res) => {
     console.log(req.body);
     res.send('Ai Tutor Backend!')
 })
+
+
+
+// OPEN AI ROUTES
+app.get('/openai', (req, res) => {
+    res.status(200).send({
+        message: 'hello im the ai teacher'
+    })
+});
+
+app.post('/openai', async (req, res) => {
+    try {
+        const userprompt = 'write a poem about the importance of AI learning';
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo-1106",
+            messages: [
+                // { "role": "system", "content": `${userprompt}` },
+                { "role": "user", "content": `${userprompt}` }
+            ],
+        });
+
+       
+            console.log(response.choices[0]);
+            res.status(200).send({
+                bot: response.choices[0]
+            });
+      
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error });
+    }
+});
 
 
 
@@ -167,25 +208,40 @@ app.post('/topicnotes/:topicId', async (req, res) => {
             return res.status(404).json({ message: 'Topic not found' });
         }
 
-        // Create a new note
-        const newNote = {
-            text: req.body.text,
-            imageUrl: req.body.imageUrl,
-        };
+        // Check if a note for this topic already exists
+        const existingNote = await topicnotes.findOne({ topic: topicId });
 
-        // Create a new note document
-        const createdNote = await topicnotes.create({
-            topic: topicId,
-            slides: [newNote],
-        });
+        if (existingNote) {
+            // If a note exists, push the new slide to the existing note
+            existingNote.slides.push({
+                text: req.body.text,
+                imageUrl: req.body.imageUrl,
+            });
 
-        console.log('Successfully created a new note', createdNote);
-        res.status(201).json({ message: 'Note created successfully', note: createdNote });
+            // Save the updated note
+            const updatedNote = await existingNote.save();
+
+            console.log('Successfully updated an existing note', updatedNote);
+            res.status(201).json({ message: 'Note updated successfully', note: updatedNote });
+        } else {
+            // If no note exists, create a new note
+            const newNote = await topicnotes.create({
+                topic: topicId,
+                slides: [{
+                    text: req.body.text,
+                    imageUrl: req.body.imageUrl,
+                }],
+            });
+
+            console.log('Successfully created a new note', newNote);
+            res.status(201).json({ message: 'Note created successfully', note: newNote });
+        }
     } catch (error) {
         console.error('An error occurred', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 
