@@ -29,22 +29,22 @@ const saltRounds = 10;
 
 
 
-// // CONNECTION TO THE DB
-// mongoose.connect(process.env.MONGODB_URI, {
-//     useNewUrlParser: true, // no longer needed
-//     useUnifiedTopology: true, // no longer needed
-// });
+// CONNECTION TO THE DB
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true, // no longer needed
+    useUnifiedTopology: true, // no longer needed
+});
 
-// const db = mongoose.connection;
+const db = mongoose.connection;
 
-// db.on('error', (err) => {
-//     console.error('MongoDB connection error:', err);
-//     process.exit(1); // Exit the application on a MongoDB connection error
-// });
+db.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit the application on a MongoDB connection error
+});
 
-// db.once('open', () => {
-//     console.log('Connected to MongoDB');
-// });
+db.once('open', () => {
+    console.log('Connected to MongoDB');
+});
 
 
 
