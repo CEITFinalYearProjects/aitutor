@@ -1,5 +1,5 @@
 const express = require('express')
-const OpenAI = require('openai')
+// const OpenAI = require('openai')
 var bodyParser = require('body-parser')
 const port = 3100
 const cors = require('cors');
@@ -50,48 +50,48 @@ db.once('open', () => {
 
 
 
-// CONNECT TO OPEN AI
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_KEY
-});
+// // CONNECT TO OPEN AI
+// const openai = new OpenAI({
+//     apiKey: process.env.OPENAI_KEY
+// });
 
-app.get('/', (req, res) => {
-    console.log(req.body);
-    res.send('Ai Tutor Backend!')
-})
+// app.get('/', (req, res) => {
+//     console.log(req.body);
+//     res.send('Ai Tutor Backend!')
+// })
 
 
 
-// OPEN AI ROUTES
-app.get('/openai', (req, res) => {
-    res.status(200).send({
-        message: 'hello im the ai teacher'
-    })
-});
+// // OPEN AI ROUTES
+// app.get('/openai', (req, res) => {
+//     res.status(200).send({
+//         message: 'hello im the ai teacher'
+//     })
+// });
 
-app.post('/openai', async (req, res) => {
-    try {
-        const userprompt = 'write a poem about the importance of AI learning';
+// app.post('/openai', async (req, res) => {
 
-        const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-1106",
-            messages: [
-                // { "role": "system", "content": `${userprompt}` },
-                { "role": "user", "content": `${userprompt}` }
-            ],
-        });
+//     try {
+//         const userprompt = 'write a poem about the importance of AI learning';
 
-       
-            console.log(response.choices[0]);
-            res.status(200).send({
-                bot: response.choices[0]
-            });
-      
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({ error });
-    }
-});
+//         const response = await openai.chat.completions.create({
+//             model: "gpt-3.5-turbo-1106",
+//             messages: [
+//                 // { "role": "system", "content": `${userprompt}` },
+//                 { "role": "user", "content": `${userprompt}` }
+//             ],
+//         });
+//         console.log(response.choices[0]);
+//         res.status(200).send({
+//             bot: response.choices[0]
+//         });
+
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({ error });
+//     }
+
+// });
 
 
 
