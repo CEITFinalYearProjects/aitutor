@@ -1,7 +1,7 @@
 const express = require('express')
 // const OpenAI = require('openai')
 var bodyParser = require('body-parser')
-const port = 3100
+const port = 3200
 const cors = require('cors');
 const { default: mongoose } = require('mongoose');
 const User = require('./models/users.models');
